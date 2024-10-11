@@ -1,13 +1,19 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
+interface ContainerProps {
+  isOpen: boolean
+}
 
-export const Container = styled.aside`
+export const Container = styled.aside<ContainerProps>`
   background-color: ${({ theme }) => theme.colors.red};
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  width: 7.75rem;
+  // trocar width com menuOpen
+  ${({ isOpen })=> (isOpen ? css`width: 16.3rem` : css`width: 7.75rem`)};
+  //width: ${({ isOpen })=> (isOpen ? '16.3rem' : '7.75rem')};
+  transition: width 300ms;
 
   padding: 2rem 0;
   overflow: hidden;
