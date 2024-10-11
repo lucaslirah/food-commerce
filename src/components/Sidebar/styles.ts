@@ -85,4 +85,49 @@ export const Container = styled.aside<ContainerProps>`
       }
     }
   }
+
+  @media(max-width: 720px){
+    width: 100%;
+    height: 5rem;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    overflow-y: auto;
+    padding: 0 0;
+
+    button{
+      display: none;
+    }
+
+    nav{
+      height: 100%;
+      ul{
+        flex-direction: row;
+        align-items: center;
+      }
+      li{
+        a {
+          flex-direction: column;
+          padding: 0;
+
+          svg{
+            width: 3.25rem;
+            height: 3.25rem;
+          }
+          span{
+            display: none;
+          }
+          &.active{
+            &::after{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
 `
