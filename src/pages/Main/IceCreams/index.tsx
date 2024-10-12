@@ -1,7 +1,11 @@
-import React from 'react'
+import { Head } from '../../../components/Head'
+import { SnackTitle } from '../../../components/SnackTitle'
 
 export default function IceCreams() {
   return (
-    <div>IceCreams</div>
+    <>
+      <Head title='Sorvetes'/>
+      <SnackTitle>Sorvetes</SnackTitle>
+    </>
   )
 }
