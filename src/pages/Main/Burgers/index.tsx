@@ -32,7 +32,6 @@ export default function Burgers() {
     },
   ]
 
-  console.log('data', data)
   return (
     <>
       <Head title='Hambúrgueres' description='Nossos melhores burgers.'/>
