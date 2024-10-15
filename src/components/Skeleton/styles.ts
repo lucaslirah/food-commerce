@@ -3,7 +3,7 @@ import { SkeletonSnackProps } from './index'
 
 const shimmerEffect = keyframes`
   0% {
-    background-position: 0%;
+    background-position: 0;
   }
   50% {
     background-position: -50%;
