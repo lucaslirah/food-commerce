@@ -14,7 +14,7 @@ export function Snacks({ snacks } : SnacksProps) {
       {//falso arquétipo de loading
         !snacks.length ? (
           // falso arquétipo
-          [1,2,3,4].map(n=> <SkeletonSnack key={n}/>)
+          [1,2,3,4,5,6].map(n=> <SkeletonSnack key={n}/>)
           ) : (
         snacks.map((snack) => (
           <div key={snack.id} className="snack">
