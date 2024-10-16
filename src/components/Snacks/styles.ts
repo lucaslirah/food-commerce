@@ -29,12 +29,32 @@ export const Container = styled.div`
       text-align: center;
     }
 
-    img {
-      object-fit: cover;
+    .image-wrapper {
+      position: relative;
       width: 100%;
       height: 11.25rem;
       border-radius: 4px;
       margin-bottom: 0.375rem;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 11.25rem;
+        border-radius: 4px;
+        margin-bottom: 0.375rem;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(250, 0, 0, 0.08); /* Cor clara avermelhada */
+        border-radius: 4px;
+        z-index: 1;
+      }
     }
 
     p {
