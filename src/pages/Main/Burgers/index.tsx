@@ -2,7 +2,7 @@ import { Head } from '../../../components/Head'
 import { SnackTitle } from '../../../components/SnackTitle'
 import { Snacks } from '../../../components/Snacks'
 import { useContext } from 'react'
-import { SnackContext } from '../../../App'
+import { SnackContext } from '../../../contexts/SnackContext'
 
 export default function Burgers() {
   const { burgers } = useContext(SnackContext)
