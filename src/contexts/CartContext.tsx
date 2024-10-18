@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, ReactNode } from 'react'
+import { createContext, useState, ReactNode } from 'react'
 import { SnackData } from '../interfaces/SnackData'
 
 interface Snack extends SnackData {
