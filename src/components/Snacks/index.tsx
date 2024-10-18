@@ -4,12 +4,15 @@ import { Container } from './styles'
 import { currencyFormat } from '../../helpers/currencyFormat'
 import { SkeletonSnack } from './SkeletonSnack'
 import { SnackData } from '../../interfaces/SnackData'
+import { useCart } from '../../hooks/useCart'
 
 interface SnacksProps {
   snacks: SnackData[]
 }
 
 export function Snacks({ snacks } : SnacksProps) {
+  const { addSnackIntoCart } = useCart()
+
   return (
     <Container >
       {//falso arquétipo de loading
@@ -26,7 +29,7 @@ export function Snacks({ snacks } : SnacksProps) {
             <p>{snack.description}</p>
             <div>
               <strong>{currencyFormat(snack.price)}</strong>
-              <button type="button">
+              <button type="button" onClick={() => addSnackIntoCart(snack)}>
                 <FiPlus />
               </button>
             </div>
