@@ -8,7 +8,7 @@ export default function Drinks() {
 
   return (
     <>
-      <Head title='Bebidas' description='Nossos melhores bebidas.'/>
+      <Head title='Bebidas' description='Nossas melhores bebidas.'/>
       <SnackTitle>Bebidas</SnackTitle>
       <Snacks snacks={drinks}/>
     </>
