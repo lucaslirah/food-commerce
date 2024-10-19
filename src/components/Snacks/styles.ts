@@ -22,6 +22,25 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+    span {
+      position: absolute;
+      top: -.5rem;
+      left: -.5rem;
+
+      background-color: ${({ theme }) => theme.colors.red};
+      width: 2rem;
+      height: 2rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: 50%;
+
+      font-size: 1.125rem;
+      font-weight: 500;
+    }
+
     h2 {
       margin-bottom: 0.75rem;
       font-weight: 700;

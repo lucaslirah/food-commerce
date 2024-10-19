@@ -11,7 +11,7 @@ interface SnacksProps {
 }
 
 export function Snacks({ snacks } : SnacksProps) {
-  const { addSnackIntoCart } = useCart()
+  const { cart, addSnackIntoCart } = useCart()
 
   return (
     <Container >
@@ -20,8 +20,13 @@ export function Snacks({ snacks } : SnacksProps) {
           // falso arquétipo
           [1,2,3,4,5,6].map(n=> <SkeletonSnack key={n}/>)
           ) : (
-        snacks.map((snack) => (
-          <div key={snack.id} className="snack">
+        snacks.map((snack) => {
+          const existentSnack = cart.find(item => item.snack === snack.snack && item.id === snack.id)
+          return (
+            <div key={snack.id} className="snack">
+            {existentSnack &&
+              <span>{existentSnack.quantity}</span>
+            }
             <h2>{snack.name}</h2>
             <div className="image-wrapper">
               <img src={snack.image} alt={snack.name} />
@@ -34,7 +39,7 @@ export function Snacks({ snacks } : SnacksProps) {
               </button>
             </div>
           </div>
-        ))
+          )})
         )
       }
     </Container>
