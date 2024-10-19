@@ -1,5 +1,7 @@
 import { createContext, useState, ReactNode } from 'react'
 import { SnackData } from '../interfaces/SnackData'
+import { toast } from 'react-toastify'
+import { snackEmoji } from '../helpers/snackEmoji'
 
 interface Snack extends SnackData {
   quantity: number
@@ -39,16 +41,20 @@ export function CartProvider({ children }: CartProviderProps){
 
     if(existentSnack) {
       const newCart = cart.map((item) => {
-        if(item.id === snack.id && item.snack === snack.snack){
+        if (item.id === snack.id && item.snack === snack.snack) {
           const quantity = item.quantity + 1
 
-          return {...item, quantity, subtotal: item.price * quantity}
+          return { ...item, quantity, subtotal: item.price * quantity }
         }
 
         return item
       })
 
-      console.log("atualização", newCart)
+      // condição para snacks - se for pizza ou bebida usar 'adicionada' se for outro tipo de snack usar 'adicionado'
+      const action = snack.snack === 'pizza' || snack.snack === 'drink' ? 'adicionada' : 'adicionado'
+      const pronoun = snack.snack === 'pizza' || snack.snack === 'drink' ? 'Outra' : 'Outro'
+
+      toast.success(`${pronoun} ${snackEmoji(snack.snack)} ${snack.name} ${action} aos pedidos!`)
       setCart(newCart)
       return
     }
@@ -56,7 +62,11 @@ export function CartProvider({ children }: CartProviderProps){
     const newSnack = {...snack, quantity: 1, subtotal: snack.price}
     const newCart = [...cart, newSnack]
 
-    console.log("adição", newCart)
+    // condição para snacks - se for pizza ou bebida usar 'adicionada' se for outro tipo de snack usar 'adicionado'
+    const action = snack.snack === 'pizza' || snack.snack === 'drink' ? 'adicionada' : 'adicionado'
+    const article = snack.snack === 'pizza' || snack.snack === 'drink' ? 'Uma' : 'Um'
+
+    toast.success(`${article} ${snackEmoji(snack.snack)} ${snack.name} ${action} aos pedidos!`)
     setCart(newCart)
   }
 
