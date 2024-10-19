@@ -51,14 +51,14 @@ export const Container = styled.div`
     .image-wrapper {
       position: relative;
       width: 100%;
-      height: 11.25rem;
+      height: 12rem;
       border-radius: 4px;
       margin-bottom: 0.375rem;
 
       img {
         object-fit: cover;
         width: 100%;
-        height: 11.25rem;
+        height: 12rem;
         border-radius: 4px;
         margin-bottom: 0.375rem;
       }
@@ -66,7 +66,7 @@ export const Container = styled.div`
       &::after {
         content: '';
         position: absolute;
-        top: 0;
+        top: -3px;
         left: 0;
         width: 100%;
         height: 100%;
