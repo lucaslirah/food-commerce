@@ -33,11 +33,11 @@ export function TableDesktop() {
               <td>
                 <div>
                   <button type="button" onClick={()=> console.log('decrementar', item)}>
-                    <img src={minusImg}/>
+                    <img src={minusImg} alt="Dimunuir quantidade"/>
                   </button>
                   <span>{`${ item.quantity }`.padStart(2, '0')}</span>
                   <button type="button" onClick={()=> console.log('incrementar', item)}>
-                    <img src={plusImg}/>
+                    <img src={plusImg} alt="Aumentar quantidade"/>
                   </button>
                 </div>
               </td>
