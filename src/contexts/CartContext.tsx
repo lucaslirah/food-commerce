@@ -61,17 +61,41 @@ export function CartProvider({ children }: CartProviderProps){
   }
 
   function removeSnackFromCart(snack: Snack) : void {
-    const newCart = cart.filter((item) => !(item.id === snack.id && item.snack === snack.snack))
+    const confirmRemove = confirm(`Remover ${snackEmoji(snack.snack)} ${snack.name}?`)
 
-    // condição para snacks - se for pizza ou bebida usar'removida' se for outro tipo de snack usar'removida'
-    const action = snack.snack === 'pizza' || snack.snack === 'drink' ? 'removida' : 'removido'
+    if (confirmRemove){
+      const newCart = cart.filter((item) => !(item.id === snack.id && item.snack === snack.snack))
 
-    toast.success(`${snackEmoji(snack.snack)} ${snack.name} ${action} do carrinho!`)
-    setCart(newCart)
+      // condição para snacks - se for pizza ou bebida usar'removida' se for outro tipo de snack usar'removida'
+      const action = snack.snack === 'pizza' || snack.snack === 'drink' ? 'removida' : 'removido'
+
+      toast.success(`${snackEmoji(snack.snack)} ${snack.name} ${action} do carrinho!`)
+      setCart(newCart)
+    }
   }
 
   function updateSnackQuantity(snack: Snack, newQuantity: number) : void {
-    return
+    // lógica para atualizar a quantidade de snack
+    if(newQuantity <= 0){
+      removeSnackFromCart(snack)
+      return
+    }
+
+    const existentSnackInCart = cart.find(item => item.id === snack.id && item.snack === snack.snack)
+
+    if(!existentSnackInCart) return
+
+    const newCart = cart.map((item) => {
+      if (item.id === snack.id && item.snack === snack.snack) {
+        return {
+          ...item, quantity: newQuantity, subtotal: item.price * newQuantity
+        }
+      }
+
+      return item
+    })
+
+    setCart(newCart)
   }
 
   function snackCartIncrement(snack: Snack) : void {
