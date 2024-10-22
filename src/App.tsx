@@ -6,7 +6,7 @@ import { Normalize } from 'styled-normalize'
 import { SnackProvider } from './contexts/SnackContext'
 import { CartProvider } from './contexts/CartContext'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'; // optional theme
+import 'react-toastify/dist/ReactToastify.css' // optional theme
 
 
 export default function App() {
