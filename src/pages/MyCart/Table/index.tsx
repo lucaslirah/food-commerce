@@ -17,7 +17,6 @@ export function Table() {
 
     return () => {
       window.removeEventListener('resize', updateWindowDimensions)
-      console.log(windowWidth)
     }
   }, [])
 
