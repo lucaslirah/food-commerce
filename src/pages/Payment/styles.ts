@@ -46,7 +46,7 @@ export const Form = styled.form`
     margin-bottom: 0.5rem;
   }
 
-  input {
+  input, select {
     width: 100%;
     height: 42px;
     padding: 0.7rem;

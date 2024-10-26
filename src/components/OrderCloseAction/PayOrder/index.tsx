@@ -1,8 +1,8 @@
-import { Container } from './styles'
-import { currencyFormat } from '../../helpers/currencyFormat'
-import { useCart } from '../../hooks/useCart'
+import { Container } from '../styles'
+import { currencyFormat } from '../../../helpers/currencyFormat'
+import { useCart } from '../../../hooks/useCart'
 
-export function ConfirmOrder() {
+export function PayOrder() {
   const { cart } = useCart()
   // total dos pedidos
 
@@ -15,9 +15,9 @@ export function ConfirmOrder() {
   return (
     <Container>
       <button>
-        Finalizar pedido
+        Pagar
       </button>
-        <span>
+      <span>
           Total: <strong>{currencyFormat(totalAmount)}</strong>
         </span>
     </Container>
