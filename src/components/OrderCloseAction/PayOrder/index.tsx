@@ -14,7 +14,7 @@ export function PayOrder() {
 
   return (
     <Container>
-      <button>
+      <button type="submit">
         Pagar
       </button>
       <span>

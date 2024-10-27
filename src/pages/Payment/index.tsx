@@ -1,54 +1,100 @@
 import { Head } from '../../components/Head'
 import { Container, Inner, Form} from './styles'
 import { OrderHeader } from '../../components/OrderHeader'
-import { CPFInput } from './CPFInput'
-import { PhoneInput } from './PhoneInput'
-import { CEPInput } from './CEPInput'
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
+import { useForm, SubmitHandler } from "react-hook-form"
+import React from 'react'
+
+type FieldValues = {
+  fullName: string,
+  email: string,
+  phone: string,
+}
 
 export default function Payment() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FieldValues>()
+  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
+
   return (
     <Container>
       <Head title="Pagamento" />
       <OrderHeader/>
       <Inner>
-        <Form>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <h4>Informações pessoais</h4>
 
           <div className="field">
-            <label htmlFor="full-name">Nome e sobrenome</label>
-            <input type="text" id="full-name" name="full-name" required autoComplete="name"
-                   placeholder="Maria José Silva" />
+            <label htmlFor="fullName">Nome e sobrenome</label>
+            <input
+              type="text"
+              id="fullName"
+              autoComplete="name"
+              placeholder="Maria José Silva"
+              {...register('fullName', { required: true })}
+            />
+            {errors.fullName && <p>O nome e sobrenome é obrigatório!</p>}
           </div>
 
           <div className="grouped">
             <div className="field">
               <label htmlFor="email">E-mail</label>
-              <input type="email" id="email" name="email" placeholder="seuemail@email.com" required
+              <input type="email" id="email" name="email" placeholder="seuemail@email.com"
                      autoComplete="email" />
             </div>
-            <PhoneInput />
-            <CPFInput />
-            {/*<div className="field">*/}
-            {/*  <label htmlFor="document">CPF / CNPJ</label>*/}
-            {/*  <input type="text" id="document" name="document" required autoComplete="" />*/}
-            {/*  <input type="text" id="document" name="document" inputMode="numeric" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required />*/}
-            {/*</div>*/}
+            <div className="field">
+              <label htmlFor="phone">Telefone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="(00) 90000-0000"
+                pattern="\d{10}"
+                autoComplete="tel"
+                inputMode="numeric"
+              />
+            </div>
+            <div className="field">
+              <label htmlFor="document">CPF / CNPJ</label>
+              <input
+                type="text"
+                placeholder="000.000.000-00"
+                autoComplete=""
+                id="document"
+                name="document"
+                inputMode="numeric"
+              />
+            </div>
           </div>
 
           <h4>Endereço de entrega</h4>
 
-          <CEPInput />
+          <div className="field">
+            <label htmlFor="zipcode">CEP</label>
+            <input
+              type="text"
+              id="zipcode"
+              name="zipcode"
+              placeholder="00000-000"
+              pattern="\d{5}-\d{3}"
+              autoComplete="postal-code"
+              inputMode="numeric"
+              style={{ width: '128px' }}
+            />
+          </div>
           <div className="field">
             <label htmlFor="address">Endereço</label>
-            <input type="text" id="address" name="address" required autoComplete="street-address"
+            <input type="text" id="address" name="address" autoComplete="street-address"
                    placeholder="Rua Sabores" />
           </div>
 
           <div className="grouped">
             <div className="field">
               <label htmlFor="number">Número</label>
-              <input type="text" id="number" name="number" required autoComplete="street-address-number"
+              <input type="text" id="number" name="number" autoComplete="street-address-number"
                      placeholder="00" />
             </div>
             <div className="field">
@@ -60,12 +106,12 @@ export default function Payment() {
           <div className="grouped">
             <div className="field">
               <label htmlFor="neighborhood">Bairro</label>
-              <input type="text" id="neighborhood" name="neighborhood" required autoComplete="address-level3"
+              <input type="text" id="neighborhood" name="neighborhood" autoComplete="address-level3"
                      placeholder="Bairro Gourmet" />
             </div>
             <div className="field">
               <label htmlFor="city">Cidade</label>
-              <input type="text" id="city" name="city" required autoComplete="address-level2"
+              <input type="text" id="city" name="city" autoComplete="address-level2"
                      placeholder="Sua Cidade" />
             </div>
             <div className="field">
@@ -151,9 +197,9 @@ export default function Payment() {
             </div>
           </div>
 
+          <PayOrder />
         </Form>
 
-        <PayOrder/>
       </Inner>
     </Container>
   )

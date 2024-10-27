@@ -38,6 +38,11 @@ export const Form = styled.form`
   .field{
     flex-grow: 1;
     margin-bottom: 1rem;
+
+    p{
+      color: ${({ theme }) => theme.colors.red};
+      margin-bottom: 0.5rem;
+    }
   }
 
   label {
