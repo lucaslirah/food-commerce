@@ -3,20 +3,25 @@ import { Container, Inner, Form} from './styles'
 import { OrderHeader } from '../../components/OrderHeader'
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
 import { useForm, SubmitHandler } from "react-hook-form"
-import React from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 
-type FieldValues = {
-  fullName: string,
-  email: string,
-  phone: string,
-}
+const schema = yup.object({
+  fullName: yup.string().required('O nome e sobrenome é obrigatório!'),
+  email: yup.string().required(),
+  phone: yup.string().required(),
+}).required();
+
+type FieldValues = yup.InferType<typeof schema>;
 
 export default function Payment() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<FieldValues>()
+  } = useForm<FieldValues>({
+    resolver: yupResolver(schema)
+  })
   const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
 
   return (
@@ -34,28 +39,33 @@ export default function Payment() {
               id="fullName"
               autoComplete="name"
               placeholder="Maria José Silva"
-              {...register('fullName', { required: true })}
+              {...register('fullName')}
             />
-            {errors.fullName && <p>O nome e sobrenome é obrigatório!</p>}
+            {errors.fullName && <p>{errors.fullName.message}</p>}
           </div>
 
           <div className="grouped">
             <div className="field">
               <label htmlFor="email">E-mail</label>
-              <input type="email" id="email" name="email" placeholder="seuemail@email.com"
-                     autoComplete="email" />
+              <input
+                type="email"
+                id="email"
+                placeholder="seuemail@email.com"
+                autoComplete="email"
+                {...register('email')}
+              />
+              {errors.email && <p>{errors.email.message}</p>}
             </div>
             <div className="field">
               <label htmlFor="phone">Telefone</label>
               <input
                 type="tel"
                 id="phone"
-                name="phone"
                 placeholder="(00) 90000-0000"
-                pattern="\d{10}"
                 autoComplete="tel"
-                inputMode="numeric"
+                {...register('phone')}
               />
+              {errors.phone && <p>{errors.phone.message}</p>}
             </div>
             <div className="field">
               <label htmlFor="document">CPF / CNPJ</label>
