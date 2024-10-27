@@ -1,27 +1,32 @@
-import { Head } from '../../components/Head'
 import { Container, Inner, Form} from './styles'
-import { OrderHeader } from '../../components/OrderHeader'
+
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
-import { useForm, SubmitHandler } from "react-hook-form"
+import { OrderHeader } from '../../components/OrderHeader'
+import { Head } from '../../components/Head'
+
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
+import { IMaskInput } from 'react-imask'
+import * as yup from 'yup'
 
 const schema = yup.object({
   fullName: yup.string().required('O nome e sobrenome é obrigatório!'),
   email: yup.string().required(),
   phone: yup.string().required(),
-}).required();
+}).required()
 
-type FieldValues = yup.InferType<typeof schema>;
+type FieldValues = yup.InferType<typeof schema>
 
 export default function Payment() {
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<FieldValues>({
     resolver: yupResolver(schema)
   })
+  // eslint-disable-next-line no-console
   const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
 
   return (
@@ -34,12 +39,18 @@ export default function Payment() {
 
           <div className="field">
             <label htmlFor="fullName">Nome e sobrenome</label>
-            <input
-              type="text"
-              id="fullName"
-              autoComplete="name"
-              placeholder="Maria José Silva"
-              {...register('fullName')}
+            <Controller
+              name="fullName"
+              control={control}
+              render={({ field }) => (
+                <input
+                  type="text"
+                  id="fullName"
+                  autoComplete="name"
+                  placeholder="Maria José Silva"
+                  {...field}
+                />
+              )}
             />
             {errors.fullName && <p>{errors.fullName.message}</p>}
           </div>
@@ -47,26 +58,41 @@ export default function Payment() {
           <div className="grouped">
             <div className="field">
               <label htmlFor="email">E-mail</label>
-              <input
-                type="email"
-                id="email"
-                placeholder="seuemail@email.com"
-                autoComplete="email"
-                {...register('email')}
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="seuemail@email.com"
+                    autoComplete="email"
+                    {...field}
+                  />
+                )}
               />
               {errors.email && <p>{errors.email.message}</p>}
             </div>
+
             <div className="field">
               <label htmlFor="phone">Telefone</label>
-              <input
-                type="tel"
-                id="phone"
-                placeholder="(00) 90000-0000"
-                autoComplete="tel"
-                {...register('phone')}
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    type="tel"
+                    id="phone"
+                    placeholder="(00) 90000-0000"
+                    mask={'(00) 90000-0000'}
+                    autoComplete="tel"
+                    {...field}
+                  />
+                )}
               />
               {errors.phone && <p>{errors.phone.message}</p>}
             </div>
+
             <div className="field">
               <label htmlFor="document">CPF / CNPJ</label>
               <input
@@ -95,6 +121,7 @@ export default function Payment() {
               style={{ width: '128px' }}
             />
           </div>
+
           <div className="field">
             <label htmlFor="address">Endereço</label>
             <input type="text" id="address" name="address" autoComplete="street-address"
@@ -107,23 +134,27 @@ export default function Payment() {
               <input type="text" id="number" name="number" autoComplete="street-address-number"
                      placeholder="00" />
             </div>
+
             <div className="field">
               <label htmlFor="complement">Complemento</label>
               <input type="text" id="complement" name="complement" autoComplete="address-line2"
                      placeholder="Referência" />
             </div>
           </div>
+
           <div className="grouped">
             <div className="field">
               <label htmlFor="neighborhood">Bairro</label>
               <input type="text" id="neighborhood" name="neighborhood" autoComplete="address-level3"
                      placeholder="Bairro Gourmet" />
             </div>
+
             <div className="field">
               <label htmlFor="city">Cidade</label>
               <input type="text" id="city" name="city" autoComplete="address-level2"
                      placeholder="Sua Cidade" />
             </div>
+
             <div className="field">
               <label htmlFor="state">Estado</label>
               <select id="state" name="state">
@@ -161,6 +192,7 @@ export default function Payment() {
           </div>
 
           <h4>Pagamento</h4>
+
           <div className='field'>
             <label htmlFor='credit-card-number'>Número do cartão</label>
             <input
