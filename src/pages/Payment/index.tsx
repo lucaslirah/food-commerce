@@ -1,18 +1,10 @@
 import { Head } from '../../components/Head'
-import { Container, Inner, Form} from './styles'
+import { Container, Inner, Form } from './styles'
 import { OrderHeader } from '../../components/OrderHeader'
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from "yup"
-
-const schema = yup.object({
-  fullName: yup.string().required('O nome e sobrenome é obrigatório!'),
-  email: yup.string().required(),
-  phone: yup.string().required(),
-}).required();
-
-type FieldValues = yup.InferType<typeof schema>;
+import { schema, FieldValues } from './validationSchema'
 
 export default function Payment() {
   const {
@@ -22,6 +14,7 @@ export default function Payment() {
   } = useForm<FieldValues>({
     resolver: yupResolver(schema)
   })
+  // eslint-disable-next-line no-console
   const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
 
   return (
