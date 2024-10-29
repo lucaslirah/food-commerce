@@ -20,7 +20,6 @@ type FieldValues = yup.InferType<typeof schema>
 export default function Payment() {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors }
   } = useForm<FieldValues>({
