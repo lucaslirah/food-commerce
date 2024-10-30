@@ -7,7 +7,7 @@ import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IMaskInput } from 'react-imask'
+import { IMask, IMaskInput } from 'react-imask'
 
 export default function Payment() {
   const {
@@ -109,205 +109,262 @@ export default function Payment() {
 
           <h4>Endereço de entrega</h4>
 
-          {/*<div className="field">*/}
-          {/*  <label htmlFor="zipCode">CEP</label>*/}
-          {/*  <Controller*/}
-          {/*    name="zipCode"*/}
-          {/*    control={control}*/}
-          {/*    render={({ field }) => (*/}
-          {/*      <IMaskInput*/}
-          {/*        type="text"*/}
-          {/*        id="zipCode"*/}
-          {/*        placeholder="00000-000"*/}
-          {/*        inputMode="numeric"*/}
-          {/*        style={{ width: '128px' }}*/}
-          {/*        mask={"00000-000"}*/}
-          {/*        {...field}*/}
-          {/*      />)}*/}
-          {/*  />*/}
-          {/*  {errors.zipCode && <p>{errors.zipCode.message}</p>}*/}
-          {/*</div>*/}
-          {/*<div className="field">*/}
-          {/*  <label htmlFor="address">Endereço</label>*/}
-          {/*  <Controller*/}
-          {/*    name="address"*/}
-          {/*    control={control}*/}
-          {/*    render={({ field }) => (*/}
-          {/*      <input*/}
-          {/*        type="text"*/}
-          {/*        id="address"*/}
-          {/*        placeholder="Rua Sabores"*/}
-          {/*        {...field}*/}
-          {/*      />*/}
-          {/*    )}*/}
-          {/*  />*/}
-          {/*  {errors.address && <p>{errors.address.message}</p>}*/}
-          {/*</div>*/}
+          <div className="field">
+            <label htmlFor="zipCode">CEP</label>
+            <Controller
+              name="zipCode"
+              control={control}
+              render={({ field }) => (
+                <IMaskInput
+                  type="text"
+                  id="zipCode"
+                  placeholder="00000-000"
+                  inputMode="numeric"
+                  style={{ width: '128px' }}
+                  mask={"00000-000"}
+                  {...field}
+                  onAccept={(value) => setValue('zipCode', value, { shouldValidate: true })}
+                />)}
+            />
+            {errors.zipCode && <p>{errors.zipCode.message}</p>}
+          </div>
+          <div className="field">
+            <label htmlFor="address">Endereço</label>
+            <Controller
+              name="address"
+              control={control}
+              render={({ field }) => (
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="Rua Sabores"
+                  {...field}
+                />
+              )}
+            />
+            {errors.address && <p>{errors.address.message}</p>}
+          </div>
 
-          {/*<div className="grouped">*/}
-          {/*  <div className="field">*/}
-          {/*    <label htmlFor="number">Número</label>*/}
-          {/*    <Controller*/}
-          {/*      name="number"*/}
-          {/*      control={control}*/}
-          {/*      render={({ field }) => (*/}
-          {/*        <input*/}
-          {/*          type="text"*/}
-          {/*          id="number"*/}
-          {/*          placeholder="00"*/}
-          {/*          {...field}*/}
-          {/*        />*/}
-          {/*      )}*/}
-          {/*    />*/}
-          {/*    {errors.number && <p>{errors.number.message}</p>}*/}
-          {/*  </div>*/}
+          <div className="grouped">
+            <div className="field">
+              <label htmlFor="number">Número</label>
+              <Controller
+                name="number"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    id="number"
+                    placeholder="00"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.number && <p>{errors.number.message}</p>}
+            </div>
 
-          {/*  <div className="field">*/}
-          {/*    <label htmlFor="complement">Complemento</label>*/}
-          {/*    <Controller*/}
-          {/*      name="complement"*/}
-          {/*      control={control}*/}
-          {/*      render={({ field }) => (*/}
-          {/*        <input*/}
-          {/*          type="text"*/}
-          {/*          id="complement"*/}
-          {/*          placeholder="Referência"*/}
-          {/*          {...field}*/}
-          {/*        />*/}
-          {/*      )}*/}
-          {/*    />*/}
-          {/*    {errors.complement && <p>{errors.complement.message}</p>}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+            <div className="field">
+              <label htmlFor="complement">Complemento</label>
+              <Controller
+                name="complement"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    id="complement"
+                    placeholder="Referência"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.complement && <p>{errors.complement.message}</p>}
+            </div>
+          </div>
 
-          {/*<div className="grouped">*/}
-          {/*  <div className="field">*/}
-          {/*    <label htmlFor="neighborhood">Bairro</label>*/}
-          {/*    <Controller*/}
-          {/*      name="neighborhood"*/}
-          {/*      control={control}*/}
-          {/*      render={({ field }) => (*/}
-          {/*        <input*/}
-          {/*          type="text"*/}
-          {/*          id="neighborhood"*/}
-          {/*          placeholder="Bairro Gourmet"*/}
-          {/*          {...field}*/}
-          {/*        />*/}
-          {/*      )}*/}
-          {/*    />*/}
-          {/*    {errors.neighborhood && <p>{errors.neighborhood.message}</p>}*/}
-          {/*  </div>*/}
+          <div className="grouped">
+            <div className="field">
+              <label htmlFor="neighborhood">Bairro</label>
+              <Controller
+                name="neighborhood"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    id="neighborhood"
+                    placeholder="Bairro Gourmet"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.neighborhood && <p>{errors.neighborhood.message}</p>}
+            </div>
 
-          {/*  <div className="field">*/}
-          {/*    <label htmlFor="city">Cidade</label>*/}
-          {/*    <Controller*/}
-          {/*      name="city"*/}
-          {/*      control={control}*/}
-          {/*      render={({ field }) => (*/}
-          {/*        <input*/}
-          {/*          type="text"*/}
-          {/*          id="city"*/}
-          {/*          placeholder="Sua Cidade"*/}
-          {/*          {...field}*/}
-          {/*        />*/}
-          {/*      )}*/}
-          {/*    />*/}
-          {/*    {errors.city && <p>{errors.city.message}</p>}*/}
-          {/*  </div>*/}
+            <div className="field">
+              <label htmlFor="city">Cidade</label>
+              <Controller
+                name="city"
+                control={control}
+                render={({ field }) => (
+                  <input
+                    type="text"
+                    id="city"
+                    placeholder="Sua Cidade"
+                    {...field}
+                  />
+                )}
+              />
+              {errors.city && <p>{errors.city.message}</p>}
+            </div>
 
-          {/*  <div className="field">*/}
-          {/*    <label htmlFor="state">Estado</label>*/}
-          {/*    <Controller*/}
-          {/*      name="state"*/}
-          {/*      control={control}*/}
-          {/*      render={({ field }) => (*/}
-          {/*        <select*/}
-          {/*          id="state"*/}
-          {/*          {...field}*/}
-          {/*        >*/}
-          {/*          /!* estados do Brasil *!/*/}
-          {/*          <option value="">Selecione</option>*/}
-          {/*          <option value="AC">Acre</option>*/}
-          {/*          <option value="AL">Alagoas</option>*/}
-          {/*          <option value="AP">Amapá</option>*/}
-          {/*          <option value="AM">Amazonas</option>*/}
-          {/*          <option value="BA">Bahia</option>*/}
-          {/*          <option value="CE">Ceará</option>*/}
-          {/*          <option value="DF">Distrito Federal</option>*/}
-          {/*          <option value="ES">Espírito Santo</option>*/}
-          {/*          <option value="GO">Goiás</option>*/}
-          {/*          <option value="MA">Maranhão</option>*/}
-          {/*          <option value="MT">Mato Grosso</option>*/}
-          {/*          <option value="MS">Mato Grosso do Sul</option>*/}
-          {/*          <option value="MG">Minas Gerais</option>*/}
-          {/*          <option value="PA">Pará</option>*/}
-          {/*          <option value="PB">Paraíba</option>*/}
-          {/*          <option value="PR">Paraná</option>*/}
-          {/*          <option value="PE">Pernambuco</option>*/}
-          {/*          <option value="PI">Piauí</option>*/}
-          {/*          <option value="RJ">Rio de Janeiro</option>*/}
-          {/*          <option value="RN">Rio Grande do Norte</option>*/}
-          {/*          <option value="RS">Rio Grande do Sul</option>*/}
-          {/*          <option value="RO">Rondônia</option>*/}
-          {/*          <option value="RR">Roraima</option>*/}
-          {/*          <option value="SC">Santa Catarina</option>*/}
-          {/*          <option value="SP">São Paulo</option>*/}
-          {/*          <option value="SE">Sergipe</option>*/}
-          {/*          <option value="TO">Tocantins</option>*/}
-          {/*        </select>*/}
-          {/*      )}*/}
-          {/*    />*/}
-          {/*    {errors.state && <p>{errors.state.message}</p>}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+            <div className="field">
+              <label htmlFor="state">Estado</label>
+              <Controller
+                name="state"
+                control={control}
+                render={({ field }) => (
+                  <select
+                    id="state"
+                    {...field}
+                  >
+                    {/* estados do Brasil */}
+                    <option value="">Selecione</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                  </select>
+                )}
+              />
+              {errors.state && <p>{errors.state.message}</p>}
+            </div>
+          </div>
 
           <h4>Pagamento</h4>
 
-          {/*<div className='field'>*/}
-          {/*  <label htmlFor='credit-card-number'>Número do cartão</label>*/}
-          {/*  <input*/}
-          {/*    type='text'*/}
-          {/*    id='credit-card-number'*/}
-          {/*    name='credit-card-number'*/}
-          {/*    autoComplete='cc-number'*/}
-          {/*    placeholder='1234 5678 9012 3456'*/}
-          {/*  />*/}
-          {/*</div>*/}
+          <div className='field'>
+            <label htmlFor='creditCardNumber'>Número do cartão</label>
+            <Controller
+              name="creditCardNumber"
+              control={control}
+              render={({ field }) => (
+                <IMaskInput
+                  type='text'
+                  id='creditCardNumber'
+                  autoComplete='cc-number'
+                  placeholder='1234 5678 9012 3456'
+                  mask={[
+                    {mask: '0000 000000 0000', maxLength: 14 },
+                    { mask: '000 0000000 00000', maxLength: 15},
+                    { mask: '0000 0000 0000 0000'}
+                  ]}
+                  {...field}
+                  onAccept={(value) => setValue('creditCardNumber', value, { shouldValidate: true })}
+                />
+              )}
+            />
+            {errors.creditCardNumber && <p>{errors.creditCardNumber.message}</p>}
+          </div>
 
-          {/*<div className='field'>*/}
-          {/*  <label htmlFor='credit-card-holder-name'>Nome impresso no cartão</label>*/}
-          {/*  <input*/}
-          {/*    type='text'*/}
-          {/*    id='credit-card-holder-name'*/}
-          {/*    name='credit-card-holder-name'*/}
-          {/*    autoComplete='cc-name'*/}
-          {/*    placeholder='Nome do titular do cartão'*/}
-          {/*  />*/}
-          {/*</div>*/}
+          <div className='field'>
+            <label htmlFor='creditCardHolderName'>Nome impresso no cartão</label>
+            <Controller
+              name="creditCardHolderName"
+              control={control}
+              render={({ field }) => (
+                <input
+                  type='text'
+                  id="creditCardHolderName"
+                  autoComplete='cc-name'
+                  placeholder='Nome do titular do cartão'
+                  {...field}
+                />
+              )}
+            />
+            {errors.creditCardHolderName && <p>{errors.creditCardHolderName.message}</p>}
+          </div>
 
-          {/*<div className='grouped'>*/}
-          {/*  <div className='field'>*/}
-          {/*    <label htmlFor='credit-card-expiration'>Validade (MM/AA)</label>*/}
-          {/*    <input*/}
-          {/*      type='text'*/}
-          {/*      id='credit-card-expiration'*/}
-          {/*      name='credit-card-expiration'*/}
-          {/*      autoComplete='cc-exp'*/}
-          {/*      placeholder='MM/AA'*/}
-          {/*    />*/}
-          {/*  </div>*/}
+          <div className='grouped'>
+            <div className='field'>
+              <label htmlFor='creditCardExpirationDate'>Validade (MM/AA)</label>
+              <Controller
+                name="creditCardExpirationDate"
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    type='text'
+                    id='credit-card-expiration'
+                    autoComplete='cc-exp'
+                    placeholder='MM/AA'
+                    mask={
+                      [
+                        {
+                          mask: 'MM/YY',
+                          blocks:{
+                            MM: {
+                              mask: IMask.MaskedRange,
+                              from: 1,
+                              to: 12
+                            },
+                            YY: {
+                              mask: IMask.MaskedRange,
+                              from: new Date().getFullYear() -2000,
+                              to: 99
+                            },
+                          },
+                        },
+                      ]
+                    }
+                    {...field}
+                    onAccept={(value) => setValue('creditCardExpirationDate', value, { shouldValidate: true })}
+                  />
+                )}
+              />
+              {errors.creditCardExpirationDate && <p>{errors.creditCardExpirationDate.message}</p>}
+            </div>
 
-          {/*  <div className='field'>*/}
-          {/*    <label htmlFor='credit-card-code'>Código de segurança (CVV)</label>*/}
-          {/*    <input*/}
-          {/*      type='text'*/}
-          {/*      id='credit-card-code'*/}
-          {/*      name='credit-card-code'*/}
-          {/*      autoComplete='cc-csc'*/}
-          {/*      placeholder='000'*/}
-          {/*    />*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+            <div className='field'>
+              <label htmlFor='creditCardCVV'>Código de segurança (CVV)</label>
+              <Controller
+                name="creditCardCVV"
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    type='text'
+                    id='creditCardCode'
+                    autoComplete='cc-csc'
+                    placeholder='000'
+                    mask={'0000'}
+                    {...field}
+                    onAccept={(value) => setValue('creditCardCVV', value, { shouldValidate: true })}
+                  />
+                )}
+              />
+              {errors.creditCardCVV && <p>{errors.creditCardCVV.message}</p>}
+            </div>
+          </div>
 
           <PayOrder />
         </Form>
