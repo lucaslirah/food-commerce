@@ -26,9 +26,25 @@ interface CartProviderProps {
 
 export const CartContext = createContext({} as CartContextProps)
 
+const keyStorage = "@food-commerce:cart"
 export function CartProvider({ children }: CartProviderProps){
-  const [cart, setCart] = useState<Snack[]>([])
   const navigate = useNavigate()
+  const [cart, setCart] = useState<Snack[]>(() => {
+    //recuperar itens de localstorage
+    const storedCart = localStorage.getItem(keyStorage)
+
+    if(storedCart) return JSON.parse(storedCart)
+
+    return []
+  })
+
+  function saveCart(items: Snack[]){
+    setCart(items)
+    localStorage.setItem(keyStorage, JSON.stringify(items))
+  }
+  function clearCart(){
+    localStorage.removeItem(keyStorage)
+  }
 
   function addSnackIntoCart(snack: SnackData) : void {
     const existentSnack = cart.find((item) => item.snack === snack.snack && item.id === snack.id)
@@ -49,7 +65,7 @@ export function CartProvider({ children }: CartProviderProps){
       const pronoun = snack.snack === 'pizza' || snack.snack === 'drink' ? 'Outra' : 'Outro'
 
       toast.success(`${pronoun} ${snackEmoji(snack.snack)} ${snack.name} ${action} aos pedidos!`)
-      setCart(newCart)
+      saveCart(newCart)
       return
     }
 
@@ -61,7 +77,7 @@ export function CartProvider({ children }: CartProviderProps){
     const article = snack.snack === 'pizza' || snack.snack === 'drink' ? 'Uma' : 'Um'
 
     toast.success(`${article} ${snackEmoji(snack.snack)} ${snack.name} ${action} aos pedidos!`)
-    setCart(newCart)
+    saveCart(newCart)
   }
 
   function removeSnackFromCart(snack: Snack) : void {
@@ -74,7 +90,7 @@ export function CartProvider({ children }: CartProviderProps){
       const action = snack.snack === 'pizza' || snack.snack === 'drink' ? 'removida' : 'removido'
 
       toast.success(`${snackEmoji(snack.snack)} ${snack.name} ${action} do carrinho!`)
-      setCart(newCart)
+      saveCart(newCart)
     }
   }
 
@@ -99,7 +115,7 @@ export function CartProvider({ children }: CartProviderProps){
       return item
     })
 
-    setCart(newCart)
+    saveCart(newCart)
   }
 
   function snackCartIncrement(snack: Snack) : void {
@@ -115,7 +131,12 @@ export function CartProvider({ children }: CartProviderProps){
   }
   function payOrder(customer: CustomerData) : void {
     // eslint-disable-next-line no-console
-    console.log(`payOrder`, cart, customer)
+    console.log('payOrder', customer, cart)
+
+    // lógica para pagamento do pedido / chamada da API
+
+    clearCart() // deve ser executado após retorno positivo da API
+
     return
   }
 
