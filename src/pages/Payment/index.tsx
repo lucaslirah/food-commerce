@@ -4,12 +4,16 @@ import { Head } from '../../components/Head'
 import { schema, FieldValues } from './validationSchema'
 import { OrderHeader } from '../../components/OrderHeader'
 import { PayOrder } from '../../components/OrderCloseAction/PayOrder'
+import { CustomerData } from '../../interfaces/CustomerData'
+import { useCart } from '../../hooks/useCart'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { IMask, IMaskInput } from 'react-imask'
 
 export default function Payment() {
+  const { payOrder } = useCart()
+
   const {
     control,
     handleSubmit,
@@ -17,8 +21,7 @@ export default function Payment() {
   } = useForm<FieldValues>({
     resolver: yupResolver(schema)
   })
-  // eslint-disable-next-line no-console
-  const onSubmit: SubmitHandler<FieldValues> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<FieldValues> = (data) => payOrder(data as CustomerData)
 
   return (
     <Container>
