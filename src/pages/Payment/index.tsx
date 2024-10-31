@@ -142,6 +142,7 @@ export default function Payment() {
                   type="text"
                   id="address"
                   placeholder="Rua Sabores"
+                  autoComplete="true"
                   {...field}
                 />
               )}
