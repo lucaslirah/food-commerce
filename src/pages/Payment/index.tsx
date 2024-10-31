@@ -38,6 +38,7 @@ export default function Payment() {
               control={control}
               render={({ field }) => (
                 <input
+                  id="fullName"
                   type="text"
                   placeholder="Maria José"
                   autoComplete="name"
@@ -76,7 +77,7 @@ export default function Payment() {
                     type="tel"
                     id="mobile"
                     placeholder="(00) 90000-0000"
-                    autoComplete="phone"
+                    autoComplete="tel"
                     mask={"(00) 90000-0000"}
                     {...field}
                     onAccept={(value) => setValue('mobile', value, { shouldValidate: true })}
@@ -96,7 +97,7 @@ export default function Payment() {
                     placeholder="000.000.000-00"
                     id="document"
                     inputMode="numeric"
-                    autoComplete="document"
+                    autoComplete="true"
                     mask={[
                       { mask: '000.000.000-00', maxLength: 11 },
                       { mask: '00.000.000/0000-00' }
@@ -318,7 +319,7 @@ export default function Payment() {
                 render={({ field }) => (
                   <IMaskInput
                     type='text'
-                    id='credit-card-expiration'
+                    id='creditCardExpirationDate'
                     autoComplete='cc-exp'
                     placeholder='MM/AA'
                     mask={
@@ -356,7 +357,7 @@ export default function Payment() {
                 render={({ field }) => (
                   <IMaskInput
                     type='text'
-                    id='creditCardCode'
+                    id='creditCardCVV'
                     autoComplete='cc-csc'
                     placeholder='000'
                     mask={'0000'}
@@ -371,7 +372,6 @@ export default function Payment() {
 
           <PayOrder />
         </Form>
-
       </Inner>
     </Container>
   )

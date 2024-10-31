@@ -47,7 +47,7 @@ export function TableDesktop() {
                 <h5>{currencyFormat(item.subtotal)}</h5>
               </td>
               <td>
-                <button onClick={() => removeSnackFromCart(item)}>
+                <button title="remover lanche do carrinho" onClick={() => removeSnackFromCart(item)}>
                   <FaTrashAlt/>
                 </button>
               </td>

@@ -34,7 +34,7 @@ export function Snacks({ snacks } : SnacksProps) {
             <p>{snack.description}</p>
             <div>
               <strong>{currencyFormat(snack.price)}</strong>
-              <button type="button" onClick={() => addSnackIntoCart(snack)}>
+              <button type="button" title="adicionar lanche" onClick={() => addSnackIntoCart(snack)}>
                 <FiPlus />
               </button>
             </div>

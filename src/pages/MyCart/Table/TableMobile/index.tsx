@@ -30,7 +30,7 @@ export function TableMobile() {
                     <img src={plusImg} alt="Aumentar quantidade" />
                   </button>
                 </div>
-              <button type="button" onClick={() => removeSnackFromCart(item)}>
+              <button type="button" title="remover lanche do carrinho" onClick={() => removeSnackFromCart(item)}>
                 <FaTrashAlt />
               </button>
               </div>
