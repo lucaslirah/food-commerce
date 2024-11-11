@@ -10,7 +10,7 @@ export function ConfirmOrder() {
   // cart.forEach((snack) => {
   //   totalAmount += snack.subtotal
   // })
-  const totalAmount = cart.reduce((acc, snack) => (acc += snack.subtotal), 0)
+  const totalAmount = cart.reduce((acc, snack) => (acc += Number(snack.subtotal)), 0)
 
   return (
     <Container>

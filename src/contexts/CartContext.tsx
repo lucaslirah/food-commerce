@@ -4,11 +4,8 @@ import { toast } from 'react-toastify'
 import { snackEmoji } from '../helpers/snackEmoji'
 import { useNavigate } from 'react-router-dom'
 import { CustomerData } from '../interfaces/CustomerData'
-
-interface Snack extends SnackData {
-  quantity: number
-  subtotal: number
-}
+import { Snack } from '../interfaces/Snack'
+import { processCheckout } from '../services/api'
 
 interface CartContextProps {
   cart: Snack[]
@@ -129,13 +126,23 @@ export function CartProvider({ children }: CartProviderProps){
   function confirmOrder() : void {
     navigate('/payment')
   }
-  function payOrder(customer: CustomerData) : void {
-    // eslint-disable-next-line no-console
-    console.log('payOrder', customer, cart)
-
+  async function payOrder(customer: CustomerData) {
     // lógica para pagamento do pedido / chamada da API
+    try {
+      const response = await processCheckout(cart, customer)
+      if(response.data.status !== 'COMPLETED') {
+        toast.error('Falha ao realizar o pedido. Tente novamente.')
+        return
+      }
 
-    clearCart() // deve ser executado após retorno positivo da API
+      toast.success('Pedido realizado com sucesso!')
+      clearCart() // deve ser executado após retorno positivo da API
+
+      navigate(`/order/success/${response.data.id}`)
+
+    }catch (error){
+      toast.error('Erro ao processar o pedido. Tente novamente.')
+    }
 
     return
   }
